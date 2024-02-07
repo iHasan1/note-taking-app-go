@@ -1,10 +1,13 @@
 package main
 
-import "fmt"
-import "example.com/note-taking-app/note"
-import "bufio"
-import "os"
-import "strings"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+	"example.com/note-taking-app/note"
+	"example.com/note-taking-app/todo"
+)
 
 func main() {
 	title, content := getNoteData()
