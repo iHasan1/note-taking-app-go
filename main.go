@@ -9,6 +9,7 @@ import (
 	"example.com/note-taking-app/todo"
 )
 
+// No need to explicitly link todo and note structs as Go does it automatically by verifying the signature of the method present in the structs therefore saveData fn works
 type saver interface {
 	Save() error
 }
@@ -32,23 +33,27 @@ func main() {
 	}
 
 	todo.Display()
-	err = todo.Save()
+	err = saveData(userNote)
 	if err != nil {
-		fmt.Println("Saving the todo failed")
 		return
 	}
-	fmt.Println("Saving the todo succeeded!")
 
 	userNote.Display()
-	err = userNote.Save()
+	err = saveData(userNote)
 	if err != nil {
-		fmt.Println("Saving the note failed")
 		return
 	}
-	fmt.Println("Saving the note succeeded!")
 }
 
-func saveData() {}
+func saveData(data saver) error {
+	err := data.Save()
+	if err != nil {
+		fmt.Println("Saving the note failed")
+		return err
+	}
+	fmt.Println("Saving the note succeeded!")
+	return nil
+}
 
 func getNoteData() (string, string) {
 	title := getUserInput("Note Title:")
