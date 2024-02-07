@@ -55,16 +55,33 @@ func main() {
 
 // can also use "any" as argument in place of interface{}
 func printSomething(value interface{}) {
-	switch value.(type) {
-	case int:
-		fmt.Println("Integer:", value)
-	case float64:
-		fmt.Println("float:", value)
-	case string:
-		fmt.Println(value)
-	default:
-		//...
+	intVal, ok := value.(int)
+	if ok {
+		fmt.Println("Integer:", intVal)
+		return
 	}
+
+	floatVal, ok := value.(float64)
+	if ok {
+		fmt.Println("float:", floatVal)
+		return
+	}
+
+	strVal, ok := value.(string)
+	if ok {
+		fmt.Println(strVal)
+		return
+	}
+	// switch value.(type) {
+	// case int:
+	// 	fmt.Println("Integer:", value)
+	// case float64:
+	// 	fmt.Println("float:", value)
+	// case string:
+	// 	fmt.Println(value)
+	// default:
+	// 	//...
+	// }
 }
 
 func outputData(data outputtable) error {
