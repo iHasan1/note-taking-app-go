@@ -11,6 +11,14 @@ import (
 
 func main() {
 	title, content := getNoteData()
+	todoText := getUserInput("Todo Text:")
+
+	todo, err := todo.New(todoText)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	userNote, err := note.New(title, content)
 
@@ -19,14 +27,20 @@ func main() {
 		return
 	}
 
+	todo.Display()
+	err = todo.Save()
+	if err != nil {
+		fmt.Println("Saving the todo failed")
+		return
+	}
+	fmt.Println("Saving the todo succeeded!")
+
 	userNote.Display()
 	err = userNote.Save()
-
 	if err != nil {
 		fmt.Println("Saving the note failed")
 		return
 	}
-
 	fmt.Println("Saving the note succeeded!")
 }
 
