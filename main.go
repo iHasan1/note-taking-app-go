@@ -29,7 +29,7 @@ func getNoteData() (string, string) {
 }
 
 func getUserInput(prompt string) (string) {
-	fmt.Print(prompt)
+	fmt.Printf("%v ",prompt)
 
 	/* scanning like this wont work with longer inputs
 	// var value string
