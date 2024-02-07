@@ -9,10 +9,11 @@ import (
 	"encoding/json"
 )
 
+// using back tick to assign metadata to struct also called struct tags, in this case so that json object created with it has the right keys
 type Note struct {
-	Title string
-	Content string
-	CreatedAt time.Time
+	Title string `json:"title"`
+	Content string	`json:"content"`
+	CreatedAt time.Time	`json:"created_at"`
 }
 
 func (note Note) Display() {
