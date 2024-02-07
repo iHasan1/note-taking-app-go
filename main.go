@@ -9,6 +9,10 @@ import (
 	"example.com/note-taking-app/todo"
 )
 
+type saver interface {
+	Save() error
+}
+
 func main() {
 	title, content := getNoteData()
 	todoText := getUserInput("Todo Text:")
@@ -43,6 +47,8 @@ func main() {
 	}
 	fmt.Println("Saving the note succeeded!")
 }
+
+func saveData() {}
 
 func getNoteData() (string, string) {
 	title := getUserInput("Note Title:")
