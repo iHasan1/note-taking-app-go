@@ -53,6 +53,11 @@ func main() {
 	outputData(userNote) // no need to handle err as program will end here anyways
 }
 
+// can also use "any" as argument in place of interface{}
+func printSomething(value interface{}) {
+	fmt.Println(value)
+}
+
 func outputData(data outputtable) error {
 	data.Display()
 	return saveData(data)
