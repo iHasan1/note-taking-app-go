@@ -14,35 +14,48 @@ type saver interface {
 	Save() error
 }
 
+type displayer interface {
+	Display()
+}
+
+// type outputtable interface {
+// 	Save() error
+// 	Displayer()
+// }
+
+// instead of above create an embedded interface
+type outputtable interface {
+	saver
+	displayer
+}
+
 func main() {
 	title, content := getNoteData()
 	todoText := getUserInput("Todo Text:")
 
 	todo, err := todo.New(todoText)
-
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
 	userNote, err := note.New(title, content)
-
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	todo.Display()
-	err = saveData(userNote)
+	err = outputData(todo)
 	if err != nil {
 		return
 	}
 
-	userNote.Display()
-	err = saveData(userNote)
-	if err != nil {
-		return
-	}
+	outputData(userNote) // no need to handle err as program will end here anyways
+}
+
+func outputData(data outputtable) error {
+	data.Display()
+	return saveData(data)
 }
 
 func saveData(data saver) error {
