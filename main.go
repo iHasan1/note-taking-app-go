@@ -1,43 +1,34 @@
 package main
 
 import "fmt"
-import "errors"
+import "example.com/note-taking-app/note"
 
 func main() {
-	title, content, err := getNoteData()
+	title, content := getNoteData()
 
-	if(err != nil) {
+	userNote, err := note.New(title, content)
+
+	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	
+	userNote.Display()
+
 }
 
-func getNoteData() (string, string, error) {
-	title, err := getUserInput("Note Title:")
+func getNoteData() (string, string) {
+	title := getUserInput("Note Title:")
 
-	if err != nil {
-		return "", "", err
-	}
+	content := getUserInput("Note Content:")
 
-	content, err := getUserInput("Note Content:")
-	
-	if err != nil {
-		return "", "", err
-	}
-
-	return title, content, nil
+	return title, content
 }
 
-func getUserInput(prompt string) (string, error) {
+func getUserInput(prompt string) (string) {
 	fmt.Print(prompt)
 	var value string
 	fmt.Scanln(&value) // scanln also allows to register a enter key event
 
-	if value == "" {
-		return "", errors.New("Invalid input")
-	}
-
-	return value, nil
+	return value
 }
