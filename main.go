@@ -17,7 +17,14 @@ func main() {
 	}
 
 	userNote.Display()
+	err = userNote.Save()
 
+	if err != nil {
+		fmt.Println("Saving the note failed")
+		return
+	}
+
+	fmt.Println("Saving the note succeeded!")
 }
 
 func getNoteData() (string, string) {
@@ -45,8 +52,6 @@ func getUserInput(prompt string) (string) {
 
 	text = strings.TrimSuffix(text, "\n")	// we need to remove the line break from string because readString does not remove it
 	text = strings.TrimSuffix(text, "\r")	// in windows sometimes line break is defined by \r
-
-
 
 	return text
 }
